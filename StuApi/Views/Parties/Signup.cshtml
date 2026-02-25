@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Signup";
+}
+
+<h2>Party Signup</h2>
+
+<div class="form-group">
+    <label>Select Party</label>
+    <select id="partyDropdown" asp-items="ViewBag.Parties" class="form-control">
+        <option value="">-- Select Party --</option>
+    </select>
+</div>
+
+<br />
+
+<div id="signupDiv" style="display:none;">
+    <h4>Proceed to Sign Up</h4>
+    <button class="btn btn-success">Signup</button>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#partyDropdown").change(function () {
+
+                var partyId = $(this).val();
+
+                if (partyId) {
+
+                    $.ajax({
+                        url: '/Parties/AllowSignUp',
+                        type: 'POST',
+                        data: { partyId: partyId },
+                        success: function (response) {
+
+                            if (response.isExternal === false) {
+                                $("#signupDiv").show();
+                            }
+                            else {
+                                $("#signupDiv").hide();
+                            }
+
+                        }
+                    });
+                }
+                else {
+                    $("#signupDiv").hide();
+                }
+
+            });
+
+        });
+    </script>
+}
