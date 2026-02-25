@@ -64,6 +64,7 @@ using StuApi.Models;
 
 namespace StuApi.Controllers
 {
+    // This controller handles user authentication (signup and login) using a simple email and password mechanism.
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
